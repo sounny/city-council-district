@@ -130,18 +130,18 @@
       view.graphics.addMany([pointGraphic, polylineGraphic, polygonGraphic]);
       // Define a pop-up for usaeduLayer
       const popupEduusa = {
-        "title": "Alternative Fuel",
-        "content": "<b>Name:</b> {tation_Name}<br><b>Payment Method:</b> {Payment_Methods}<br>"
+        "title": "EDUs",
+        "content": "<b>Name:</b> {INSTNM}<br><b>Phone Number:</b> {GENTELE}<br>"
       }
       //adding the constructor for the feature layer
       const usaeduLayer = new FeatureLayer({
-        url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/Alternate_Fuel/FeatureServer",
+        url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
         //adding the popup here
-        outFields: ["Station_Name","Payment_Methods"],
+        outFields: ["INSTNM","GENTELE"],
         popupTemplate: popupEduusa
         });
         //add the feature layer to the map
-        map.addMany(usaeduLayer,popupEduusa);
+        map.add(usaeduLayer);
     });
   </script>
 
