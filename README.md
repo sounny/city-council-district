@@ -1,2 +1,2 @@
-# esrijs
-My first Esri JS Map
+# agoljs
+code to access arcgis online map
