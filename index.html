@@ -16,20 +16,125 @@
     require([
      "esri/config",
       "esri/Map",
-      "esri/views/MapView"
-    ], function (esriConfig,Map, MapView) {
+      "esri/views/MapView",
+
+      //addingin the moules for the graphic layer
+      "esri/Graphic",  
+      "esri/layers/GraphicsLayer",
+      //adding in the module for the feature layers
+      "esri/layers/FeatureLayer"   
+      ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
 
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       const map = new Map({
-        basemap: "arcgis-topographic" // Basemap layer
+        basemap: "dark-gray" // Basemap layer
       });
 
       const view = new MapView({
           map: map,
-          center: [-97.7431, 30.2672], // Longitude, latitude
-          zoom: 13, // Zoom level
+          center: [-83.046, 42.34], // Longitude, latitude
+          zoom: 14, // Zoom level
           container: "viewDiv" // Div element
         });
+        // Create a new graphics layer
+        const graphicsLayer = new GraphicsLayer();  
+        map.add(graphicsLayer);
+        //defining the geometry of the point
+        const point = { //Create a point  
+        type: "point",  
+        longitude: -83.046341,    //long lat of Detroit Lions Stadium
+        latitude: 42.340115
+      };
+      const simpleMarkerSymbol = {  
+        type: "simple-marker",
+        style: "diamond",  // Diamond shape
+        color: [0, 0, 139],  // Color of blues rock
+        size: "15px",  // Pixel size of the diamond
+        outline: {  
+          color: [255, 255, 255], // White  
+          width: 1
+        }  
+      };
+      //defining pop up content
+      const popupTemplate = {  
+        title: "{Name}",  
+        content: "{Description}" 
+      }
+      const attributes ={
+        Name: "Detroit Lions Stadium",
+        Description: "Ford Field is a multi-purpose indoor stadium located in Downtown Detroit, Michigan and home of the Detroit Lions."
+      }
+      //create the point
+      const pointGraphic = new Graphic({  
+        geometry: point,  
+        symbol: simpleMarkerSymbol , 
+        // adding popup properties
+        attributes: attributes,
+        popupTemplate: popupTemplate
+      });
+      //adding a polyline
+      const polyline = {
+          type: "polyline", // autocasts as new Polyline()
+          paths: [[-83.047961, 42.340719], [-83.046679, 42.338828], [-83.046164, 42.338106], [-83.043332, 42.339153], [-83.043895
+,42.339974]]
+        };
+        // Create a symbol for drawing the line
+        const lineSymbol = {
+          type: "simple-line", // autocasts as SimpleLineSymbol()
+          color: [226, 119, 40],
+          width: 4
+        };
+        // Create an object for storing attributes related to the line
+        const lineAtt = {
+          Name: "Brush Street to Beacon Street"
+        };
+        const polylineGraphic = new Graphic({
+          geometry: polyline,
+          symbol: lineSymbol,
+          attributes: lineAtt,
+          popupTemplate: {
+            // autocasts as new PopupTemplate()
+            title: "{Name}",
+            content: [
+              {
+                type: "fields",
+                fieldInfos: [
+                  {
+                    fieldName: "Name"
+                  }
+                ]
+              }
+            ]
+          }
+        });
+        const polygon = {
+          type: "polygon", // autocasts as new Polygon()
+          rings: [[-83.05268, 42.33968], [-83.03669, 42.34625], [-83.04555, 42.33465], [-83.04673, 42.33341],[-83.04783,42.33295],[-83.05268, 42.33968]]
+        };
+         // Create a symbol for rendering the graphic
+         const fillSymbol = {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: [192, 192, 192, .50],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 255, 255],
+            width: 1
+          }
+        };
+        // Add the geometry and symbol to a new graphic
+        const polygonGraphic = new Graphic({
+          geometry: polygon,
+          symbol: fillSymbol
+        });
+      //add the point to the graphics layer
+      view.graphics.addMany([pointGraphic, polylineGraphic, polygonGraphic]);
+
+      //adding the constructor for the feature layer
+      const usaeduLayer = new FeatureLayer({
+        url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer"
+        });
+        //add the feature layer to the map
+        map.add(usaeduLayer);
     });
   </script>
 
