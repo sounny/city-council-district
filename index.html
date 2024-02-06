@@ -142,6 +142,16 @@
         });
         //add the feature layer to the map
         map.add(usaeduLayer);
+        // Define a pop-up for airPorts
+      const airPorts = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
+        outFields: ["Fac_Name","City","State_Name","County","Fac_Use"],
+        popupTemplate: {
+          "title": "Airports",
+          "content": "<b>Name:</b>{Fac_Name}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Use:</b> {Fac_Use}"
+        }
+      });
+      map.add(airPorts);
     });
   </script>
 
