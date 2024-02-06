@@ -142,16 +142,17 @@
         });
         //add the feature layer to the map
         map.add(usaeduLayer);
+      // Define a renderer for the airports
         const airportRenderer = {
         "type": "simple",
         "symbol": {
           "type": "picture-marker",
-          "url": "https://github.com/rhinzman/agoljs/outline_flight_white_24dp.png",
+          "url": "https://rhinzman.github.io/agoljs/outline_flight_white_24dp.png",
           "width": "18px",
           "height": "18px"
         }
       }
-        // Define a pop-up for airPorts
+        // Define airPorts layer
       const airPorts = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
         renderer: airportRenderer, //calling the icon
