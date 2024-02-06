@@ -133,10 +133,20 @@
         "title": "EDUs",
         "content": "<b>Name:</b>{INSTNM}<br><b>Phone Number:</b> {GENTELE}<br><b>Institute Level:</b> {ICLEVEL}<br><b>Website:</b><a href={WEBADDR} target='_blank'>{WEBADDR}</a>"
       }
+      const uniRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://rhinzman.github.io/agoljs/outline_room_white_24dp.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
       //adding the constructor for the feature layer
       const usaeduLayer = new FeatureLayer({
         url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
         //adding the popup here
+        renderer: uniRenderer,
         outFields: ["INSTNM","GENTELE","ICLEVEL","WEBADDR"],
         popupTemplate: popupEduusa
         });
