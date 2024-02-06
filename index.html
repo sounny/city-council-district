@@ -142,13 +142,24 @@
         });
         //add the feature layer to the map
         map.add(usaeduLayer);
+        const airportRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://rhinzman/agoljs/blob/main/outline_flight_white_24dp.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
         // Define a pop-up for airPorts
       const airPorts = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
+        renderer: airportRenderer, //calling the icon
+        definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
         outFields: ["Region_Cod","City","State_Name","County","Fac_Use"],
         popupTemplate: {
           "title": "Airports",
-          "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Use:</b> {Fac_Use}"
+          "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Type:</b> {Fac_Type}"
         }
       });
       map.add(airPorts);
