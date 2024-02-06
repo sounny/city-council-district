@@ -164,6 +164,26 @@
         }
       });
       map.add(airPorts);
+      const HeliporttRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://rhinzman.github.io/agoljs/helicopter-symbol-solid.svg",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
+      const heliPorts = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
+        renderer: HeliporttRenderer, //calling the icon
+        definitionExpression: "Fac_Type = 'HELIPORT'", //adding sql to filter for airports
+        outFields: ["Region_Cod","City","State_Name","County","Fac_Use"],
+        popupTemplate: {
+          "title": "Helicopter Ports",
+          "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Type:</b> {Fac_Type}"
+        }
+      });
+      map.add(heliPorts);
     });
   </script>
 
