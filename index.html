@@ -111,27 +111,27 @@
             ]
           }
         });
-        const polygon = {
-          type: "polygon", // autocasts as new Polygon()
-          rings: [[-83.0645, 42.33545], [-83.04395, 42.34341], [-83.03553, 42.33243], [-83.05708, 42.32469],[-83.0645, 42.33545]]
-        };
-         // Create a symbol for rendering the graphic
-         const fillSymbol = {
-          type: "simple-fill", // autocasts as new SimpleFillSymbol()
-          color: [192, 192, 192, .10],
-          outline: {
-            // autocasts as new SimpleLineSymbol()
-            color: [255, 255, 255],
-            width: 1
-          }
-        };
-        // Add the geometry and symbol to a new graphic
-        const polygonGraphic = new Graphic({
-          geometry: polygon,
-          symbol: fillSymbol
-        });
+        // const polygon = {
+        //   type: "polygon", // autocasts as new Polygon()
+        //   rings: [[-83.0645, 42.33545], [-83.04395, 42.34341], [-83.03553, 42.33243], [-83.05708, 42.32469],[-83.0645, 42.33545]]
+        // };
+        //  // Create a symbol for rendering the graphic
+        //  const fillSymbol = {
+        //   type: "simple-fill", // autocasts as new SimpleFillSymbol()
+        //   color: [192, 192, 192, .10],
+        //   outline: {
+        //     // autocasts as new SimpleLineSymbol()
+        //     color: [255, 255, 255],
+        //     width: 1
+        //   }
+        // };
+        // // Add the geometry and symbol to a new graphic
+        // const polygonGraphic = new Graphic({
+        //   geometry: polygon,
+        //   symbol: fillSymbol
+        // });
       //add the point to the graphics layer
-      view.graphics.addMany([pointGraphic, polylineGraphic, polygonGraphic]);
+      view.graphics.addMany([pointGraphic, polylineGraphic]);
       // Define a pop-up for usaeduLayer
       const popupEduusa = {
         "title": "EDUs",
@@ -209,6 +209,23 @@
       });
       //adding the feature layer to the map
       map.add(myAirports);
+      // add city boundary layer
+      const cityBoundary = new FeatureLayer({
+        url: "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/City_of_Detroit_Boundary/FeatureServer/0",
+        outFields: ["name"],
+        popupTemplate: {
+          "title": "City Boundaries",
+          "content": "<b>City Name:</b>{City of Detroit}",
+          simpleMarkerSymbol: {
+            type: "simple-fill",
+            color: [192, 192, 192, .10],
+            outline: {
+              color: [255, 255, 255],
+              width: 1
+            }
+          }
+        }
+      });
       // Set the point layer's LayerInfo
       const pointInfos = {
       layer: myAirports
