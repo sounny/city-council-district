@@ -146,6 +146,22 @@
           "height": "18px"
         }
       }
+      const cityBoundary = new FeatureLayer({
+        url: "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_of_Detroit_Boundary/FeatureServer/0",
+        outFields: ["name"],
+        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: [192, 192, 192, .10],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 255, 255],
+            width: 1,
+        popupTemplate: {
+          "title": "City Boundaries",
+          "content": "<b>City:</b>{City of Detroit}"
+        }
+      }
+      });
+      map.add(cityBoundary);
       //adding the constructor for the feature layer
       const usaeduLayer = new FeatureLayer({
         url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
@@ -198,6 +214,7 @@
           "title": "Helicopter Ports",
           "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Type:</b> {Fac_Type}"
         }
+        
       });
       map.add(heliPorts);
       //adding the editor widget
