@@ -209,23 +209,28 @@
       });
       //adding the feature layer to the map
       map.add(myAirports);
+
+      // Define a renderer for the city boundaries
+      const cityRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "simple-fill",
+          "color": [192, 192, 192, .10],
+          "outline": {
+            "color": [255, 255, 255],
+            "width": 1
+          }
+        }
+      }
       // add city boundary layer
       const cityBoundary = new FeatureLayer({
         url: "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/City_of_Detroit_Boundary/FeatureServer/0",
         outFields: ["name"],
-        popupTemplate: {
-          "title": "City Boundaries",
-          "content": "<b>City Name:</b>{City of Detroit}",
-          simpleMarkerSymbol: {
-            type: "simple-fill",
-            color: [192, 192, 192, .10],
-            outline: {
-              color: [255, 255, 255],
-              width: 1
-            }
-          }
-        }
-      });
+        // popupTemplate: {
+        //   "title": "City Boundaries",
+        //   "content": "<b>City Name:</b>{City of Detroit}",
+          renderer: cityRenderer
+        });
       map.add(cityBoundary);
       // Set the point layer's LayerInfo
       const pointInfos = {
