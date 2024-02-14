@@ -49,16 +49,16 @@
         longitude: -83.046341,    //long lat of Detroit Lions Stadium
         latitude: 42.340115
       };
-      const simpleMarkerSymbol = {  
-        type: "simple-marker",
-        style: "diamond",  // Diamond shape
-        color: [0, 0, 139],  // Color of blues rock
-        size: "15px",  // Pixel size of the diamond
-        outline: {  
-          color: [255, 255, 255], // White  
-          width: 1
-        }  
-      };
+      //defining the symbol for the point
+      const LionsRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://github.com/rhinzman/agolrest/blob/main/Lions.png",
+          "width": "24px",
+          "height": "24px"
+        }
+      }
       //defining pop up content
       const popupTemplate = {  
         title: "{Name}",  
@@ -70,68 +70,15 @@
       }
       //create the point
       const pointGraphic = new Graphic({  
-        geometry: point,  
-        symbol: simpleMarkerSymbol , 
+        geometry: point,
+        symbol: LionsRenderer,  
         // adding popup properties
         attributes: attributes,
         popupTemplate: popupTemplate
       });
-      //adding a polyline
-      const polyline = {
-          type: "polyline", // autocasts as new Polyline()
-          paths: [[-83.047961, 42.340719], [-83.046679, 42.338828], [-83.046164, 42.338106], [-83.043332, 42.339153], [-83.043895
-,42.339974]]
-        };
-        // Create a symbol for drawing the line
-        const lineSymbol = {
-          type: "simple-line", // autocasts as SimpleLineSymbol()
-          color: [226, 119, 40],
-          width: 4
-        };
-        // Create an object for storing attributes related to the line
-        const lineAtt = {
-          Name: "Brush Street to Beacon Street"
-        };
-        const polylineGraphic = new Graphic({
-          geometry: polyline,
-          symbol: lineSymbol,
-          attributes: lineAtt,
-          popupTemplate: {
-            // autocasts as new PopupTemplate()
-            title: "{Name}",
-            content: [
-              {
-                type: "fields",
-                fieldInfos: [
-                  {
-                    fieldName: "Name"
-                  }
-                ]
-              }
-            ]
-          }
-        });
-        // const polygon = {
-        //   type: "polygon", // autocasts as new Polygon()
-        //   rings: [[-83.0645, 42.33545], [-83.04395, 42.34341], [-83.03553, 42.33243], [-83.05708, 42.32469],[-83.0645, 42.33545]]
-        // };
-        //  // Create a symbol for rendering the graphic
-        //  const fillSymbol = {
-        //   type: "simple-fill", // autocasts as new SimpleFillSymbol()
-        //   color: [192, 192, 192, .10],
-        //   outline: {
-        //     // autocasts as new SimpleLineSymbol()
-        //     color: [255, 255, 255],
-        //     width: 1
-        //   }
-        // };
-        // // Add the geometry and symbol to a new graphic
-        // const polygonGraphic = new Graphic({
-        //   geometry: polygon,
-        //   symbol: fillSymbol
-        // });
+      
       //add the point to the graphics layer
-      view.graphics.addMany([pointGraphic, polylineGraphic]);
+      view.graphics.addMany([pointGraphic]);
       // Define a pop-up for usaeduLayer
       const popupEduusa = {
         "title": "EDUs",
