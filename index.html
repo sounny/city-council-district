@@ -54,7 +54,7 @@
         "type": "simple",
         "symbol": {
           "type": "picture-marker",
-          "url": "https://github.com/rhinzman/agolrest/Lions.png",
+          "url": "https://rhinzman.github.io/agolrest/Lions.png",
           "width": "18px",
           "height": "18px"
         }
@@ -148,9 +148,19 @@
         
       });
       map.add(heliPorts);
+      const myAirportsRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https:///rhinzman.github.io/agolrest/airport-location-4359.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
       //adding the editor widget
       const myAirports= new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Airport_Layer/FeatureServer",
+        renderer: myAirportsRenderer, //calling the icon
         //adding the popup here
         outFields: ["AirportCode"],
       });
