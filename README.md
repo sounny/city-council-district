@@ -1,2 +1,2 @@
-# agolrest
-code to access arcgis online map
+esrijs
+my Esri JS map accessing AGOL
