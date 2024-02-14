@@ -80,34 +80,6 @@
       
       //add the point to the graphics layer
       view.graphics.addMany([pointGraphic]);
-      //create the legend widget
-      const legend = new Legend({
-        view: view,
-        layerInfos: [
-          {
-            layer: myAirports,
-            title: "My Airports"
-          },
-          {
-            layer: airPorts,
-            title: "Airports"
-          },
-          {
-            layer: heliPorts,
-            title: "Heliports"
-          },
-          {
-            layer: cityBoundary,
-            title: "City Boundaries"
-          },
-          {
-            layer: usaeduLayer,
-            title: "Colleges and Universities"
-          }
-        ]
-      });
-      //add the legend to the map
-      view.ui.add(legend, "bottom-right");
       
       // Define a pop-up for usaeduLayer
       const popupEduusa = {
@@ -223,6 +195,7 @@
           renderer: cityRenderer
         });
       map.add(cityBoundary);
+
       // Set the point layer's LayerInfo
       const pointInfos = {
       layer: myAirports
@@ -236,6 +209,35 @@
 
       // Add the widget to the view
       view.ui.add(editor, "top-right");
+      
+      //create the legend widget
+      const legend = new Legend({
+        view: view,
+        layerInfos: [
+          {
+            layer: myAirports,
+            title: "My Airports"
+          },
+          {
+            layer: airPorts,
+            title: "Airports"
+          },
+          {
+            layer: heliPorts,
+            title: "Heliports"
+          },
+          {
+            layer: cityBoundary,
+            title: "City Boundaries"
+          },
+          {
+            layer: usaeduLayer,
+            title: "Colleges and Universities"
+          }
+        ]
+      });
+      //add the legend to the map
+      view.ui.add(legend, "bottom-right");
 
     });
   </script>
