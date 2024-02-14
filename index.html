@@ -54,7 +54,7 @@
         "type": "simple",
         "symbol": {
           "type": "picture-marker",
-          "url": "https://rhinzman.github.io/agolrest/Lions.png",
+          "url": "https://rhinzman.github.io/agolrest/detroit-lions.svg",
           "width": "18px",
           "height": "18px"
         }
@@ -163,6 +163,10 @@
         renderer: myAirportsRenderer, //calling the icon
         //adding the popup here
         outFields: ["AirportCode"],
+        popupTemplate: {
+          "title": "Airports",
+          "content": "<b>Airport Code:</b>{AirportCode}"
+        }
       });
       //adding the feature layer to the map
       map.add(myAirports);
