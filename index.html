@@ -17,6 +17,7 @@
      "esri/config",
       "esri/Map",
       "esri/views/MapView",
+      "esri/widgets/Legend",
 
       //addingin the moules for the graphic layer
       "esri/Graphic",  
@@ -27,7 +28,7 @@
       "esri/widgets/Editor"
 
 
-      ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor) {
+      ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {
 
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       const map = new Map({
@@ -79,6 +80,35 @@
       
       //add the point to the graphics layer
       view.graphics.addMany([pointGraphic]);
+      //create the legend widget
+      const legend = new Legend({
+        view: view,
+        layerInfos: [
+          {
+            layer: myAirports,
+            title: "My Airports"
+          },
+          {
+            layer: airPorts,
+            title: "Airports"
+          },
+          {
+            layer: heliPorts,
+            title: "Heliports"
+          },
+          {
+            layer: cityBoundary,
+            title: "City Boundaries"
+          },
+          {
+            layer: usaeduLayer,
+            title: "Colleges and Universities"
+          }
+        ]
+      });
+      //add the legend to the map
+      view.ui.add(legend, "bottom-right");
+      
       // Define a pop-up for usaeduLayer
       const popupEduusa = {
         "title": "EDUs",
@@ -165,7 +195,7 @@
         outFields: ["AirportCode"],
         popupTemplate: {
           "title": "Airports",
-          "content": "<b>Airport Code:</b>{AirportCode}"
+          "content": "<b>Airport Code: </b>{AirportCode}"
         }
       });
       //adding the feature layer to the map
