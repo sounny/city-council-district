@@ -123,6 +123,32 @@
         });
       map.add(cityCouncil);
       
+      const colorVis= {
+        type: "simple",
+        symbol: {
+          type: "simple-fill",
+          color: "rgba(255, 0, 0, 0.5)",
+          outline: {
+            color: "white",
+            width: 1
+          }
+        },
+        visualVariables: [
+          {
+            type: "color",
+            field: "District_N",
+            stops: [
+              { value: 1, color: "rgba(255, 0, 0, 0.5)" },
+              { value: 2, color: "rgba(0, 255, 0, 0.5)" },
+              { value: 3, color: "rgba(0, 0, 255, 0.5)" },
+              { value: 4, color: "rgba(255, 255, 0, 0.5)" },
+              { value: 5, color: "rgba(255, 0, 255, 0.5)" },
+              { value: 6, color: "rgba(0, 255, 255, 0.5)" },
+              { value: 7, color: "rgba(255, 255, 255, 0.5)" }
+            ]
+          }
+        ]
+      };
       // Create a new legend widget
       const legend = new Legend({
         view: view,
