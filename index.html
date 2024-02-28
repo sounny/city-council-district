@@ -140,14 +140,14 @@
         outFields: ["District_N"],
           renderer: councilRenderer
         });
-      map.add(cityBoundary);
+      map.add(cityCouncil);
       
       // Create a new legend widget
       const legend = new Legend({
         view: view,
         layerInfos: [
           {
-            layer: cityBoundary,
+            layer: cityCouncil,
             title: "City COuncil Districts"
           },
          
