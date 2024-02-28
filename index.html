@@ -39,21 +39,7 @@
           zoom: 11, // Zoom level
           container: "viewDiv" // Div element
         });
-        const locateBtn = new Locate({
-          view: view
-        });
-        // Add the locate widget to the top left corner of the view
-          view.ui.add(locateBtn, {
-          position: "top-left"
-        });    
-        const basemapGallery = new BasemapGallery({
-          view: view
-          
-        });
-         // Add the widget to the top-right corner of the view
-         view.ui.add(basemapGallery, {
-          position: "top-right"
-        });
+        
      
       // //adding the constructor for the feature layer
       // const usaeduLayer = new FeatureLayer({
@@ -133,6 +119,21 @@
       });
       // Add the widget to the view
       view.ui.add(legend, "bottom-right");
+      const locateBtn = new Locate({
+          view: view
+        });
+        // Add the locate widget to the top left corner of the view
+          view.ui.add(locateBtn, {
+          position: "top-left"
+        });    
+        const basemapGallery = new BasemapGallery({
+          view: view
+          
+        });
+         // Add the widget to the top-right corner of the view
+         view.ui.add(basemapGallery, {
+          position: "top-right"
+        });
 
     });
   </script>
