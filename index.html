@@ -29,7 +29,7 @@
 
 
 
-      ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {
+      ], function (esriConfig,Map, MapView, FeatureLayer, Legend) {
 
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       const map = new Map({
@@ -51,180 +51,106 @@
         longitude: -83.046341,    //long lat of Detroit Lions Stadium
         latitude: 42.340115
       };
-      //defining the symbol for the point
-      const LionsRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https://rhinzman.github.io/agolrest/detroit-lions.svg",
-          "width": "18px",
-          "height": "18px"
-        }
-      }
-      //defining pop up content
-      const popupTemplate = {  
-        title: "{Name}",  
-        content: "{Description}" 
-      }
-      const attributes ={
-        Name: "Ford Field",
-        Description: "Ford Field is a multi-purpose indoor stadium located in Downtown Detroit, Michigan and home of the Detroit Lions."
-      }
-      //create the point
-      const pointGraphic = new Graphic({  
-        geometry: point,
-        symbol: LionsRenderer,  
-        // adding popup properties
-        attributes: attributes,
-        popupTemplate: popupTemplate
-      });
       
-      //add the point to the graphics layer
-      view.graphics.addMany([pointGraphic]);
-      // Define a pop-up for usaeduLayer
-      const popupEduusa = {
-        "title": "EDUs",
-        "content": "<b>Name:</b>{INSTNM}<br><b>Phone Number:</b> {GENTELE}<br><b>Institute Level:</b> {ICLEVEL}<br><b>Website:</b><a href={WEBADDR} target='_blank'>{WEBADDR}</a>"
-      }
-      const uniRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https://rhinzman.github.io/agoljs/outline_room_white_24dp.png",
-          "width": "18px",
-          "height": "18px"
-        }
-      }
-      //adding the constructor for the feature layer
-      const usaeduLayer = new FeatureLayer({
-        url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
-        //adding the popup here
-        renderer: uniRenderer,
-        outFields: ["INSTNM","GENTELE","ICLEVEL","WEBADDR"],
-        popupTemplate: popupEduusa
-        });
-        //add the feature layer to the map
-        map.add(usaeduLayer);
-      // Define a renderer for the airports
-        const airportRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https://rhinzman.github.io/agoljs/outline_flight_white_24dp.png",
-          "width": "18px",
-          "height": "18px"
-        }
-      }
-        // Define airPorts layer
-      const airPorts = new FeatureLayer({
-        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
-        renderer: airportRenderer, //calling the icon
-        definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
-        outFields: ["Region_Cod","City","State_Name","County","Fac_Use"],
-        popupTemplate: {
-          "title": "Airports",
-          "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Type:</b> {Fac_Type}"
-        }
-      });
-      map.add(airPorts);
-      // Define a renderer for the heliports
-      const HeliporttRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https://rhinzman.github.io/agoljs/helicopter-symbol-solid.svg",
-          "width": "18px",
-          "height": "18px"
-        }
-      }
-      // Define heliPorts layer
-      const heliPorts = new FeatureLayer({
-        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
-        renderer: HeliporttRenderer, //calling the icon
-        definitionExpression: "Fac_Type = 'HELIPORT'", //adding sql to filter for heliports
-        outFields: ["Region_Cod","City","State_Name","County","Fac_Use"],
-        popupTemplate: {
-          "title": "Helicopter Ports",
-          "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Type:</b> {Fac_Type}"
-        }
+      // //create the point
+      // const pointGraphic = new Graphic({  
+      //   geometry: point,
+      //   symbol: LionsRenderer,  
+      //   // adding popup properties
+      //   attributes: attributes,
+      //   popupTemplate: popupTemplate
+      // });
+      
+      // //add the point to the graphics layer
+      // view.graphics.addMany([pointGraphic]);
+      // // Define a pop-up for usaeduLayer
+      // const popupEduusa = {
+      //   "title": "EDUs",
+      //   "content": "<b>Name:</b>{INSTNM}<br><b>Phone Number:</b> {GENTELE}<br><b>Institute Level:</b> {ICLEVEL}<br><b>Website:</b><a href={WEBADDR} target='_blank'>{WEBADDR}</a>"
+      // }
+      // const uniRenderer = {
+      //   "type": "simple",
+      //   "symbol": {
+      //     "type": "picture-marker",
+      //     "url": "https://rhinzman.github.io/agoljs/outline_room_white_24dp.png",
+      //     "width": "18px",
+      //     "height": "18px"
+      //   }
+      // }
+      // //adding the constructor for the feature layer
+      // const usaeduLayer = new FeatureLayer({
+      //   url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+      //   //adding the popup here
+      //   renderer: uniRenderer,
+      //   outFields: ["INSTNM","GENTELE","ICLEVEL","WEBADDR"],
+      //   popupTemplate: popupEduusa
+      //   });
+      //   //add the feature layer to the map
+      //   map.add(usaeduLayer);
+      // // Define a renderer for the airports
+      //   const airportRenderer = {
+      //   "type": "simple",
+      //   "symbol": {
+      //     "type": "picture-marker",
+      //     "url": "https://rhinzman.github.io/agoljs/outline_flight_white_24dp.png",
+      //     "width": "18px",
+      //     "height": "18px"
+      //   }
+      // }
+      //   // Define airPorts layer
+      // const airPorts = new FeatureLayer({
+      //   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
+      //   renderer: airportRenderer, //calling the icon
+      //   definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+      //   outFields: ["Region_Cod","City","State_Name","County","Fac_Use"],
+      //   popupTemplate: {
+      //     "title": "Airports",
+      //     "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Type:</b> {Fac_Type}"
+      //   }
+      // });
+      // map.add(airPorts);
+      // // Define a renderer for the heliports
+      // const HeliporttRenderer = {
+      //   "type": "simple",
+      //   "symbol": {
+      //     "type": "picture-marker",
+      //     "url": "https://rhinzman.github.io/agoljs/helicopter-symbol-solid.svg",
+      //     "width": "18px",
+      //     "height": "18px"
+      //   }
+      // }
+      // // Define heliPorts layer
+      // const heliPorts = new FeatureLayer({
+      //   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
+      //   renderer: HeliporttRenderer, //calling the icon
+      //   definitionExpression: "Fac_Type = 'HELIPORT'", //adding sql to filter for heliports
+      //   outFields: ["Region_Cod","City","State_Name","County","Fac_Use"],
+      //   popupTemplate: {
+      //     "title": "Helicopter Ports",
+      //     "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Type:</b> {Fac_Type}"
+      //   }
         
-      });
-      map.add(heliPorts);
-      const myAirportsRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https:///rhinzman.github.io/agolrest/airport-location-4359.png",
-          "width": "24px",
-          "height": "24px"
-        }
-      }
-      //adding the editor widget
-      const myAirports= new FeatureLayer({
-        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Airport_Layer/FeatureServer",
-        renderer: myAirportsRenderer, //calling the icon
-        //adding the popup here
-        outFields: ["AirportCode"],
-        popupTemplate: {
-          "title": "Airports",
-          "content": "<b>Airport Code: </b>{AirportCode}"
-        }
-      });
-      //adding the feature layer to the map
-      map.add(myAirports);
-
-      // Define a renderer for the city boundaries
-      const cityRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "simple-fill",
-          "color": [192, 192, 192, .10],
-          "outline": {
-            "color": [255, 255, 255],
-            "width": 1
-          }
-        }
-      }
+      // });
+      // map.add(heliPorts);
+     
+      
       // add city boundary layer
-      const cityBoundary = new FeatureLayer({
-        url: "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/City_of_Detroit_Boundary/FeatureServer/0",
-        outFields: ["name"],
-        // popupTemplate: {
-        //   "title": "City Boundaries",
-        //   "content": "<b>City Name:</b>{City of Detroit}",
-          renderer: cityRenderer
+      const cityCouncil = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/City_Council_District/FeatureServer",
+        outFields: ["District_N"],
+          renderer: councilRenderer
         });
       map.add(cityBoundary);
-      // Set the point layer's LayerInfo
-      const pointInfos = {
-      layer: myAirports
-      }
-
-      // Begin Editor constructor
-      const editor = new Editor({
-      view: view,
-      layerInfos: [pointInfos]
-      }); // End Editor constructor
-
-      // Add the widget to the view
-      view.ui.add(editor, "top-right");
       
       // Create a new legend widget
       const legend = new Legend({
         view: view,
         layerInfos: [
           {
-            layer: heliPorts,
-            title: "Heliports"
-          },
-          {
-            layer: myAirports,
-            title: "My Airports"
-          },
-          {
             layer: cityBoundary,
-            title: "City Boundaries"
-          }
+            title: "City COuncil Districts"
+          },
+         
         ]
       });
       // Add the widget to the view
