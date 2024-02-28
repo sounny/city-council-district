@@ -47,7 +47,9 @@
           position: "top-left"
         });    
         const basemapGallery = new BasemapGallery({
-          view: view
+          view: view,
+          shadow: true,
+          
         });
          // Add the widget to the top-right corner of the view
          view.ui.add(basemapGallery, {
