@@ -119,7 +119,10 @@
       const cityCouncil = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/City_Council_District/FeatureServer",
         outFields: ["District_N"],
-          
+        popupTemplate: {
+          title: "City Council District {District_N}",
+          content: "This is City Council District {District_N}"
+        } 
         });
       map.add(cityCouncil);
       
