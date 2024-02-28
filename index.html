@@ -17,14 +17,9 @@
      "esri/config",
       "esri/Map",
       "esri/views/MapView",
-
-      //addingin the moules for the graphic layer
-      "esri/Graphic",  
-      "esri/layers/GraphicsLayer",
       //adding in the module for the feature layers
       "esri/layers/FeatureLayer",   
-      //adding the editor widget
-      "esri/widgets/Editor",
+      //adding in the module for the legend
       "esri/widgets/Legend",
 
 
@@ -42,41 +37,8 @@
           zoom: 11, // Zoom level
           container: "viewDiv" // Div element
         });
-        // Create a new graphics layer
-        const graphicsLayer = new GraphicsLayer();  
-        map.add(graphicsLayer);
-        //defining the geometry of the point
-        const point = { //Create a point  
-        type: "point",  
-        longitude: -83.046341,    //long lat of Detroit Lions Stadium
-        latitude: 42.340115
-      };
       
-      // //create the point
-      // const pointGraphic = new Graphic({  
-      //   geometry: point,
-      //   symbol: LionsRenderer,  
-      //   // adding popup properties
-      //   attributes: attributes,
-      //   popupTemplate: popupTemplate
-      // });
-      
-      // //add the point to the graphics layer
-      // view.graphics.addMany([pointGraphic]);
-      // // Define a pop-up for usaeduLayer
-      // const popupEduusa = {
-      //   "title": "EDUs",
-      //   "content": "<b>Name:</b>{INSTNM}<br><b>Phone Number:</b> {GENTELE}<br><b>Institute Level:</b> {ICLEVEL}<br><b>Website:</b><a href={WEBADDR} target='_blank'>{WEBADDR}</a>"
-      // }
-      // const uniRenderer = {
-      //   "type": "simple",
-      //   "symbol": {
-      //     "type": "picture-marker",
-      //     "url": "https://rhinzman.github.io/agoljs/outline_room_white_24dp.png",
-      //     "width": "18px",
-      //     "height": "18px"
-      //   }
-      // }
+     
       // //adding the constructor for the feature layer
       // const usaeduLayer = new FeatureLayer({
       //   url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
