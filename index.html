@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Hello, AGOL write this to the database for me!</title>
+  <title>City of Detroit Council District!</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
@@ -134,11 +134,11 @@
       // map.add(heliPorts);
      
       
-      // add city boundary layer
+      // add city council district layer
       const cityCouncil = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/City_Council_District/FeatureServer",
         outFields: ["District_N"],
-          renderer: councilRenderer
+          
         });
       map.add(cityCouncil);
       
@@ -148,7 +148,7 @@
         layerInfos: [
           {
             layer: cityCouncil,
-            title: "City COuncil Districts"
+            title: "City Council Districts"
           },
          
         ]
