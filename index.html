@@ -127,10 +127,11 @@
         type: "simple",
         symbol: {
           type: "simple-fill",
-          color: "rgba(255, 0, 0, 0.5)",
+          color: "rgba(192, 192, 192, .10)",
           outline: {
             color: "white",
-            width: 1
+            width: 1,
+
           }
         },
         visualVariables: [
@@ -150,7 +151,7 @@
         ]
       };
       cityCouncil.renderer = colorVis;
-      
+
       // Create a new legend widget
       const legend = new Legend({
         view: view,
