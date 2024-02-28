@@ -17,6 +17,8 @@
      "esri/config",
       "esri/Map",
       "esri/views/MapView",
+      "esri/widgets/BasemapGallery",
+      "esri/widgets/Locate",
       //adding in the module for the feature layers
       "esri/layers/FeatureLayer",   
       //adding in the module for the legend
@@ -24,7 +26,7 @@
 
 
 
-      ], function (esriConfig,Map, MapView, FeatureLayer, Legend) {
+      ], function (esriConfig,Map, MapView, FeatureLayer, Locate, BasemapGallery,Legend) {
 
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       const map = new Map({
@@ -37,7 +39,20 @@
           zoom: 11, // Zoom level
           container: "viewDiv" // Div element
         });
-      
+        const locateBtn = new Locate({
+          view: view
+        });
+        // Add the locate widget to the top left corner of the view
+          view.ui.add(locateBtn, {
+          position: "top-left"
+        });    
+        const basemapGallery = new BasemapGallery({
+          view: view
+        });
+         // Add the widget to the top-right corner of the view
+         view.ui.add(basemapGallery, {
+          position: "top-right"
+        });
      
       // //adding the constructor for the feature layer
       // const usaeduLayer = new FeatureLayer({
