@@ -41,61 +41,7 @@
         });
         
      
-      // //adding the constructor for the feature layer
-      // const usaeduLayer = new FeatureLayer({
-      //   url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
-      //   //adding the popup here
-      //   renderer: uniRenderer,
-      //   outFields: ["INSTNM","GENTELE","ICLEVEL","WEBADDR"],
-      //   popupTemplate: popupEduusa
-      //   });
-      //   //add the feature layer to the map
-      //   map.add(usaeduLayer);
-      // // Define a renderer for the airports
-      //   const airportRenderer = {
-      //   "type": "simple",
-      //   "symbol": {
-      //     "type": "picture-marker",
-      //     "url": "https://rhinzman.github.io/agoljs/outline_flight_white_24dp.png",
-      //     "width": "18px",
-      //     "height": "18px"
-      //   }
-      // }
-      //   // Define airPorts layer
-      // const airPorts = new FeatureLayer({
-      //   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
-      //   renderer: airportRenderer, //calling the icon
-      //   definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
-      //   outFields: ["Region_Cod","City","State_Name","County","Fac_Use"],
-      //   popupTemplate: {
-      //     "title": "Airports",
-      //     "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Type:</b> {Fac_Type}"
-      //   }
-      // });
-      // map.add(airPorts);
-      // // Define a renderer for the heliports
-      // const HeliporttRenderer = {
-      //   "type": "simple",
-      //   "symbol": {
-      //     "type": "picture-marker",
-      //     "url": "https://rhinzman.github.io/agoljs/helicopter-symbol-solid.svg",
-      //     "width": "18px",
-      //     "height": "18px"
-      //   }
-      // }
-      // // Define heliPorts layer
-      // const heliPorts = new FeatureLayer({
-      //   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer/layers",
-      //   renderer: HeliporttRenderer, //calling the icon
-      //   definitionExpression: "Fac_Type = 'HELIPORT'", //adding sql to filter for heliports
-      //   outFields: ["Region_Cod","City","State_Name","County","Fac_Use"],
-      //   popupTemplate: {
-      //     "title": "Helicopter Ports",
-      //     "content": "<b>Region Code:</b>{Region_Cod}<br><b>City:</b> {City}<br><b>State:</b> {State_Name}<br><b>County:</b> {County}<br><b>Facility Type:</b> {Fac_Type}"
-      //   }
-        
-      // });
-      // map.add(heliPorts);
+      
      // Create a BasemapGallery widget instance and set properties
      const basemapGallery = new BasemapGallery({
           view: view
@@ -109,6 +55,11 @@
       const locateBtn = new Locate({
           view: view
         });
+        // Create featurelayer from feature service 
+ const layer = new FeatureLayer({ 
+  // URL to the service 
+   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_fd556031aae0456ca38a1e575a84e00f_results/FeatureServer"
+});
         // Add the locate widget to the top left corner of the view
           view.ui.add(locateBtn, {
           position: "top-left"
@@ -117,7 +68,7 @@
 
       // add city council district layer
       const cityCouncil = new FeatureLayer({
-        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/City_Council_District/FeatureServer",
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/CityCouncilDistrict/FeatureServer",
         outFields: ["District_N"],
         popupTemplate: {
           title: "City Council District {District_N}",
@@ -168,12 +119,31 @@
       height: 100%;
       width: 100%;
     }
+    .addRecordBtn {
+  position: absolute;
+  z-index: 10;
+  top: 10px;
+  right: 10px;
+  background-color: #0079c1;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.addRecordBtn:hover {
+  background-color: #005a87;
+}
   </style>
 
 </head>
 <body>
 
   <!-- the div to displays the map  -->
+  <a href="https://survey123.arcgis.com/share/fd556031aae0456ca38a1e575a84e00f"target="_blank" class="addRecordBtn">Add Record</a>
   <div id="viewDiv"></div>
 
 </body>
