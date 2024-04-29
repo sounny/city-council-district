@@ -19,7 +19,6 @@
       "esri/views/MapView",
       "esri/widgets/BasemapGallery",
       "esri/widgets/Search",
-      "esri/widgets/Locate",
       //adding in the module for the feature layers
       "esri/layers/FeatureLayer",   
       //adding in the module for the legend
@@ -27,7 +26,7 @@
 
 
 
-      ], function (esriConfig,Map, MapView, Search, BasemapGallery, Locate, FeatureLayer, Legend) {
+      ], function (esriConfig,Map, MapView, Search, BasemapGallery, FeatureLayer, Legend) {
 
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       const map = new Map({
@@ -58,16 +57,7 @@
          view.ui.add(basemapGallery, {
           position: "bottom-left"
         }); 
-        // Create a Locate widget instance and set properties
-      const locateBtn = new Locate({
-          view: view
-        });
-        
-        // Add the locate widget to the top left corner of the view
-          view.ui.add(locateBtn, {
-          position: "top-left"
-        });    
-        view.ui.add(search, "top-right"); //Add to the map
+       
 // Create featurelayer from feature service 
 const layer = new FeatureLayer({ 
   // URL to the service 
@@ -75,7 +65,7 @@ const layer = new FeatureLayer({
 });
       // add city council district layer
       const cityCouncil = new FeatureLayer({
-        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/CityCouncilDistrict/FeatureServer",
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/CityCouncilDistrict/FeatureServer/0",
         outFields: ["District_N"],
         popupTemplate: {
           title: "City Council District {District_N}",
@@ -150,7 +140,5 @@ const layer = new FeatureLayer({
 <body>
   <!-- Div element to hold the map -->
   <div id="viewDiv"></div>
-  <a href="https://detroitmi.gov/departments/city-council" class="addRecordBtn">City Council Website</a>
- 
-</body>
+  
 </html>
