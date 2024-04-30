@@ -1,144 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>City of Detroit Council District!</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detroit City Council District Map</title>
 
-  <!-- calls for the arcgis api's CSS file and JS library. -->
+  <!-- ArcGIS API CSS and JavaScript -->
   <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.25/"></script>
 
-  <!-- Adding the modules, API key, and map constant needed for a full screen map app -->
-  <script>
+  <!-- Custom styles for full-screen map and button -->
+  <style>
+    html, body, #viewDiv {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .addRecordBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #0079c1;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .addRecordBtn:hover {
+      background-color: #005a87;
+    }
+  </style>
   
+  <!-- ArcGIS map configuration and widgets -->
+  <script>
     require([
-     "esri/config",
+      "esri/config",
       "esri/Map",
       "esri/views/MapView",
       "esri/widgets/BasemapGallery",
       "esri/widgets/Search",
-      //adding in the module for the feature layers
-      "esri/layers/FeatureLayer",   
-      //adding in the module for the legend
-      "esri/widgets/Legend",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/Legend"
+    ], function (esriConfig, Map, MapView, BasemapGallery, Search, FeatureLayer, Legend) {
+      esriConfig.apiKey = "AAPK9010d0b61469421388268a0a3d6b9970behQAuDdJqQ1pqWiFduaupUbAQXKrMzBGDNlYvnzFhJVmo4o4_JV_Y0cDx9Umj8M";
 
-
-
-      ], function (esriConfig,Map, MapView, Search, BasemapGallery, FeatureLayer, Legend) {
-
-      esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       const map = new Map({
-        basemap: "dark-gray" // Basemap layer
+        basemap: "dark-gray"
       });
 
       const view = new MapView({
-          map: map,
-          center: [-83.046, 42.34], // Longitude, latitude
-          zoom: 11, // Zoom level
-          container: "viewDiv" // Div element
-        });
-        
-        // Create a new Search widget
-        const search = new Search({
-          view: view
-        });
-        //add the search widget to the top right corner of the view
-        view.ui.add(search, "top-right");
+        container: "viewDiv",
+        map: map,
+        center: [-83.046, 42.34],
+        zoom: 11
+      });
 
-  
-     // Create a BasemapGallery widget instance and set properties
-     const basemapGallery = new BasemapGallery({
-          view: view
-          
-        });
-         // Add the widget to the top-right corner of the view
-         view.ui.add(basemapGallery, {
-          position: "bottom-left"
-        }); 
-       
-// Create featurelayer from feature service 
-const layer = new FeatureLayer({ 
-  // URL to the service 
-   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_fd556031aae0456ca38a1e575a84e00f_results/FeatureServer",
-});
-      // add city council district layer
+      const basemapGallery = new BasemapGallery({
+        view: view
+      });
+
+      view.ui.add(basemapGallery, {
+        position: "bottom-right"
+      });
+
+      const search = new Search({
+        view: view
+      });
+
+      search.on("select-result", function(event){
+        console.log(event.result);
+      });
+
+      view.ui.add(search, {
+        position: "bottom-left"
+      });
+
       const cityCouncil = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/CityCouncilDistrict/FeatureServer/0",
         outFields: ["District_N"],
         popupTemplate: {
           title: "City Council District {District_N}",
-          content: "This is City Council District {District_N}",
-          labelPlacement: "top-left"
+          content: "This is City Council District {District_N}"
+        }
+      });
 
-        } 
-        });
       map.add(cityCouncil);
-      
-      const colorVis= {
+
+      cityCouncil.renderer = {
         type: "simple",
         symbol: {
           type: "simple-fill",
           color: "rgba(192, 192, 192, .10)",
           outline: {
             color: "white",
-            width: 1,
+            width: 1
           }
         }
       };
-      cityCouncil.renderer = colorVis;
 
-      // Create a new legend widget
       const legend = new Legend({
         view: view,
-        layerInfos: [
-          {
-            layer: cityCouncil,
-            title: "City Council Districts"
-          },
-         
-        ]
+        layerInfos: [{
+          layer: cityCouncil,
+          title: "City Council Districts"
+        }]
       });
-      // Add the widget to the view
+
       view.ui.add(legend, "bottom-right");
-      
     });
   </script>
-
-  <!-- css to make a full screen map -->
-  <style>
-    html,
-    body,
-    #viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
-    .addRecordBtn {
-  position: absolute;
-  z-index: 10;
-  top: 10px;
-  right: 10px;
-  background-color: #0079c1;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.addRecordBtn:hover {
-  background-color: #005a87;
-}
-  </style>
-
 </head>
 <body>
-  <!-- Div element to hold the map -->
   <div id="viewDiv"></div>
-  
+</body>
 </html>
