@@ -37,7 +37,7 @@
     }
   </style>
   
-  <!-- ArcGIS map configuration and widgets -->
+  <!-- ArcGIS map configuration and widgets with expandable containers -->
   <script>
     require([
       "esri/config",
@@ -46,8 +46,9 @@
       "esri/widgets/BasemapGallery",
       "esri/widgets/Search",
       "esri/layers/FeatureLayer",
-      "esri/widgets/Legend"
-    ], function (esriConfig, Map, MapView, BasemapGallery, Search, FeatureLayer, Legend) {
+      "esri/widgets/Legend",
+      "esri/widgets/Expand"
+    ], function (esriConfig, Map, MapView, BasemapGallery, Search, FeatureLayer, Legend, Expand) {
       esriConfig.apiKey = "AAPK9010d0b61469421388268a0a3d6b9970behQAuDdJqQ1pqWiFduaupUbAQXKrMzBGDNlYvnzFhJVmo4o4_JV_Y0cDx9Umj8M";
 
       const map = new Map({
@@ -64,22 +65,30 @@
       const basemapGallery = new BasemapGallery({
         view: view
       });
-
-      view.ui.add(basemapGallery, {
-        position: "bottom-right"
+      const expandBasemap = new Expand({
+        view: view,
+        content: basemapGallery,
+        expandIconClass: "esri-icon-basemap",
+        expanded: false
       });
+
+      view.ui.add(expandBasemap, "bottom-right");
 
       const search = new Search({
         view: view
+      });
+      const expandSearch = new Expand({
+        view: view,
+        content: search,
+        expandIconClass: "esri-icon-search",
+        expanded: false
       });
 
       search.on("select-result", function(event){
         console.log(event.result);
       });
 
-      view.ui.add(search, {
-        position: "bottom-left"
-      });
+      view.ui.add(expandSearch, "bottom-left");
 
       const cityCouncil = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/CityCouncilDistrict/FeatureServer/0",
@@ -111,8 +120,14 @@
           title: "City Council Districts"
         }]
       });
+      const expandLegend = new Expand({
+        view: view,
+        content: legend,
+        expandIconClass: "esri-icon-layer-list",
+        expanded: false
+      });
 
-      view.ui.add(legend, "bottom-right");
+      view.ui.add(expandLegend, "bottom-right");
     });
   </script>
 </head>
