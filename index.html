@@ -79,6 +79,14 @@
       });
       view.ui.add(home, "top-left");
 
+
+
+    // Add FeatureLayer for the AGOL table
+    const trackerTable = new FeatureLayer({
+      url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/tracker/FeatureServer/0"
+    });
+
+
       const search = new Search({
         view: view
       });
@@ -91,9 +99,43 @@
         expanded: true
       });
 
-      search.on("select-result", function(event){
-        console.log(event.result);
+      //old listerner
+
+      // search.on("select-result", function(event){
+      //   console.log(event.result);
+      // });
+
+      //new listener
+
+      search.on("select-result", function(event) {
+      const result = event.result;
+      const address = result.name; // assuming 'name' contains the address
+      const longitude = result.feature.geometry.longitude;
+      const latitude = result.feature.geometry.latitude;
+
+      // Prepare the attributes for the new record
+      const attributes = {
+        address: address,
+        longitu: longitude,
+        latitu: latitude
+      };
+
+      // Create a new feature to add to the table
+      const newRecord = {
+        attributes: attributes
+      };
+
+      // Use applyEdits to add the new record
+      trackerTable.applyEdits({
+        addFeatures: [newRecord]
+      }).then(function(response) {
+        console.log("Record added:", response.addFeatureResults);
+      }).catch(function(error) {
+        console.error("Error adding record:", error);
       });
+    });
+
+ 
 
       view.ui.add(expandSearch, "top-right");
 
